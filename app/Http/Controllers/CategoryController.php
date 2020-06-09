@@ -28,6 +28,7 @@ class CategoryController extends Controller
        return redirect('/admin/view-category')->with('flash_message_succ','Category add Successfully');
    }
         $levles =  Category::where(['parent_id'=>0])->get();
+
      return view('admin.category.add_category')->with(compact('levles'));
     }
     public function viewCategories(){

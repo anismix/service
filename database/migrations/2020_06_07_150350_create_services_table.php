@@ -20,10 +20,13 @@ class CreateServicesTable extends Migration
             $table->string('openhour');
             $table->string('closehour');
             $table->string('phone');
+            $table->string('image');
             $table->text('description');
             $table->unsignedInteger("category_id");
             $table->foreign("category_id")->references("id")->on('categories')->onDelete('cascade');
-            $table->timestamps();
+            $table->unsignedInteger("user_id")->nullable();
+         //   $table->foreign("user_id")->references("id")->on('users')->onDelete('cascade');
+         $table->timestamps();
         });
     }
 

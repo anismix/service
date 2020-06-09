@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
 use Session;
 use App\User;
 use  Illuminate\Support\Facades\Hash;
-
 class AdminController extends Controller
 {
     //
@@ -16,7 +13,7 @@ class AdminController extends Controller
             $data  = $request->input();
           if(Auth::attempt(['email' => $data['email'] , 'password' => $data['password'] ,'role' => 'admin']))
             {
-                Session::put('sessionEmail',$data['email']);
+            Session::put('sessionEmail',$data['email']);
             return redirect('/admin/dashbord');
 
             }
@@ -42,8 +39,6 @@ class AdminController extends Controller
         return redirect('/admin')->with('flash_message_succ','Log out Successfully');
     }
     public function setting(){
-
-
    return view('admin.setting');
     }
     public function checkpwd(Request $request){
@@ -65,7 +60,7 @@ class AdminController extends Controller
            $current_pwd=$data['new_pwd'];
            if(Hash::check($current_pwd, $check_pwd->password)){
                $password = bcrypt($data['new_pwd']);
-               User::where('id','1')->update(['password'=>$password]);
+               User::where('id',$check_pwd->id)->update(['password'=>$password]);
                return redirect('/admin/setting')->with('flash_message_succ','Password Update Successfully');
            }
            else{

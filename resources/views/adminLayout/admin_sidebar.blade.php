@@ -20,7 +20,7 @@
           </li>
           <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Coupons</span> <span class="label label-important">2</span></a>
             <ul <?php if(preg_match("/coupon/i",$url)){ ?>style="display:block;"<?php } ?> >
-              <li <?php if(preg_match("/add-coupon/i",$url)){ ?>class="active" <?php } ?>><a href="{{ url('/admin/add-coupon') }}">Add Coupon</a></li>
+              <li <?php if(preg_match("/add-coupon/i",$url)){ ?>class="active" <?php } ?>><a href="{{ url('/admin/add-coupon') }}">Add khemais</a></li>
               <li <?php if(preg_match("/view-coupon/i",$url)){ ?>class="active" <?php } ?>><a href="{{ url('/admin/view-coupon') }}">View Coupon</a></li>
 
             </ul>

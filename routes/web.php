@@ -40,6 +40,7 @@ Route::get('/admin/view-service','ServiceController@viewservices');
 Route::match(['get', 'post'], '/admin/edit-service/{id}','ServiceController@editservice');
 Route::get('admin/delete-image/{id}', 'ServiceController@deleteImage');
 Route::get('admin/delete-service/{id}', 'ServiceController@deleteservice');
+
 });
 //User
 Route::match(['get', 'post'], '/check-email', 'UserController@checkEmail');
@@ -55,4 +56,12 @@ Route::group(['middleware' => ['acces']], function () {
     Route::post('/update-pass','UserController@updatepass');
     Route::post('/update-pass','UserController@updatepass');
     Route::match(['get', 'post'], '/add-service','ServiceController@userService');
+    Route::post('/postblog/{id}','BlogController@addPost');
+    Route::post('/comment/{id}','CommentController@addComment');
+
+
 });
+//forum
+Route::get('/blog','BlogController@index');
+
+
