@@ -22,6 +22,7 @@ Route::match(['get', 'post'], '/admin', 'AdminController@login');
 Route::get('/services/{url}', 'ServiceController@services');
 Route::get('/service/{id}', 'ServiceController@service');
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::group(['middleware' => ['auth']], function () {
 
 Route::get('/admin/setting','AdminController@setting');
@@ -29,11 +30,17 @@ Route::get('/admin/chek_pwd','AdminController@checkpwd');
 Route::match(['get', 'post'], '/admin/update_pwd', 'AdminController@updatePwd');
 Route::get('/admin/dashbord','AdminController@dashbord');
 Route::get('/logout','AdminController@logout');
+Route::get('/verifyservice/{id}/{url}','AdminController@verify')->name('verifyservice');
+
 //CategoryController
 Route::match(['get', 'post'], '/admin/add-category','CategoryController@addCategory');
+Route::match(['get', 'post'], '/admin/view-users','UserController@User');
+Route::match(['get', 'post'], '/admin/view-posts','BlogController@Posts');
 Route::get('/admin/view-category','CategoryController@viewCategories');
 Route::match(['get', 'post'], '/admin/edit-category/{id}','CategoryController@editCategory');
 Route::match(['get', 'post'], '/admin/delete-category/{id}','CategoryController@deleteCategory');
+Route::match(['get', 'post'], '/admin/delete-post/{id}','BlogController@deletePost');
+Route::match(['get', 'post'], '/admin/delete-user/{id}','UserController@deleteUser');
 //ServiceContoller
 Route::match(['get', 'post'], '/admin/add-service','ServiceController@addservice');
 Route::get('/admin/view-service','ServiceController@viewservices');
@@ -62,6 +69,8 @@ Route::group(['middleware' => ['acces']], function () {
 
 });
 //forum
+Route::get('/blog/{name}','BlogController@listBlog');
 Route::get('/blog','BlogController@index');
-
+Route::get('login/facebook', 'UserController@redirectToProvider');
+Route::get('login/facebook/callback', 'UserController@handleProviderCallback');
 

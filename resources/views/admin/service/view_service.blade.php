@@ -19,12 +19,10 @@
                 <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
                   <h5>Service table</h5>
                 </div>
-
                 <div class="widget-content nopadding">
                   <table class="table table-bordered data-table">
                     <thead>
                       <tr>
-
                         <th>Category Name</th>
                         <th>Service name</th>
                         <th>Service Adress</th>

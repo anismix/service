@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 class CommentController extends Controller
 {
     //
+
     public function addComment(Request $request,$id){
   $post =Post::find($id);
         $data=$request->all();

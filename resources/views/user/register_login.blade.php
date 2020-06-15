@@ -37,7 +37,16 @@
                             <input type="checkbox" class="checkbox">
                             Keep me signed in
                         </span>
+
                         <button type="submit" class="btn btn-default">Login</button>
+                        @if (Route::has('password.request'))
+                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                        </a>
+                    @endif
+                    <a href="{{ url('login/facebook') }}" class="fb btn">
+                        <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+                      </a>
                     </form>
                 </div><!--/login form-->
             </div>

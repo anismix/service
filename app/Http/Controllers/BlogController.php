@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Category;
 use App\Comment;
 use App\Post;
@@ -18,13 +16,20 @@ class BlogController extends Controller
         $categorie=Category::with('categories')->where(['parent_id'=>0])->get();
         $user=User::get();
          $comment=Comment::get();
+
          $post=Post::get();
+
          $service= Service::get();
         return view('user.forum')->with(compact('categorie','post','user','service','comment'));
 
     }
+    public function posts(){
+        $post=Post::get();
+        $user=User::get();
+        $service=Service::get();
+        return view('admin.user.post')->with(compact('post','user','service'));
+    }
     public function addPost(Request $request,$id){
-
         $data=$request->all();
         $validator = Validator::make($data,[
             'post'=>'required|min:10',
@@ -42,5 +47,19 @@ class BlogController extends Controller
         $post->save();
      return redirect('/blog');
     }
+    public function listblog($id){
+        $categorie=Category::with('categories')->where(['parent_id'=>0])->get();
+        $user=User::get();
+         $comment=Comment::get();
+         $post=Post::where('service_id',$id)->get();
+     //       dd($post);
+         $service= Service::get();
+     return view('user.forumservice')->with(compact('categorie','post','user','service','comment'));
+    }
+    public function deletePost($id){
+        if(!empty($id)){
+            Post::where(['id'=>$id])->delete();
+            return  redirect()->back()->with('flash_message_success','category has deleted success');
+    }
    }
-
+}

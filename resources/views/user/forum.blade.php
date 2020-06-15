@@ -4,7 +4,33 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3">
-                        @include('frontLayout.front_sidebar')
+                    <div class="left-sidebar">
+                        <h2>Category</h2>
+                        <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                            <div class="panel panel-default">
+                                    @foreach($categorie as $cat)
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordian" href="#{{ $cat->id }}">
+                                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+
+                                            {{ $cat->name }}
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="{{ $cat->id }}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul>
+                                            @foreach($cat->categories as $sub)
+                                            <li><a href="{{ url('/blog/'.$sub->id) }}">{{ $sub->name }} </a></li>
+                                           @endforeach
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+
                 </div>
 
 </div>
@@ -27,8 +53,7 @@
                         @if ($ser->id === $post->service_id)
                         <i> {{ $ser->name }} </i>
                         @endif
-
-
+                        @endforeach
                     </ul>
                     <span>
                         <i class="fa fa-star"></i>
@@ -56,28 +81,16 @@
                                      <span style="float:right;"> <i class="fa fa-user" ></i> {{ $use->name}}</span>
                                    @endif
                                    @endforeach
-
                                          {{ $com->body }}
                                          </div>
                                          @endif
-
-                                <span  style="float:right;" data-toggle="collapse" data-target="#demoe{{ $com->id }}"   >Reply</span>
-                                <div id="demoe{{ $com->id }}" class="collapse">
-                                        <form method="POST"  action="{{ url('/comment/'.$com->id)}}">
-                                            {{ csrf_field() }}
-                                                  <input class="form-control " name="commentreply" type="text"   placeholder="comment"  required>
-                                                                  <div class="">
-                                                                          <button type="submit" class="btn btn-primary">Comment</button>
-                                                                   </div>
-                                          </form>
-                                 </div>
                                 @endforeach
                             </form>
                 </div>
             </div>
             <hr>
             @endforeach
-            @endforeach
+
             <div class="pagination-area">
                 <ul class="pagination">
                     <li><a href="" class="active">1</a></li>

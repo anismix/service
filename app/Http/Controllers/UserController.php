@@ -9,9 +9,42 @@ use Auth;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
 use Hash;
+use Socialite;
 class UserController extends Controller
 {
     //*
+    public function user(){
+         $user=User::get();
+
+       return view('admin.user.user')->with(compact('user'));
+    }
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+
+
+    }
+
+
+    /**
+     * Obtain the user information from facebook.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback(Request $request)
+    {
+        $user = Socialite::driver('facebook')->user();
+        dd($user);
+        $user=User::firstOrCreate([
+            'name'=>$user->getName(),
+            'email'=>$user->hetEmail(),
+            'provider_id'=>$user->getId
+        ]);
+        Auth::login($user,true);
+        $request->session()->put('frontsession',$user->getEmail());
+        return redirect('/');
+        // $user->token;
+    }
     public function  userLoginRegister(){
           return view('user.register_login');
     }
@@ -121,6 +154,12 @@ public function logout(Request $request){
     Auth::logout();
     $request->session()->forget('frontsession');
     return redirect('/');
+}
+public function deleteUser($id){
+    if(!empty($id)){
+        User::where(['id'=>$id])->delete();
+        return  redirect()->back()->with('flash_message_success','category has deleted success');
+}
 }
 
 }

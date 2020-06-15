@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Category;
+use App\Notifications\testService;
 use Image;
+use Illuminate\Support\Facades\Notification;
 use DB;
 use Session;
 use App\Service;
@@ -87,7 +89,7 @@ class ServiceController extends Controller
             if($validator->fails()) {
                 return Redirect::back()->withErrors($validator);
             }
-           $service->category_id=$data['category'];
+         /**  $service->category_id=$data['category'];
            $service->name=$data['name'];
            $service->adress=$data['adress'];
            $service->openhour=$data['openhour'];
@@ -114,7 +116,22 @@ class ServiceController extends Controller
            $service->save();
            return redirect()->back()->with('flash_message_succ','Service add Successfully');
 
-        }
+        */
+        $data =$request->all();
+        $info=array(
+            'name'=>$data['name'],
+             'adress'=>$data['adress'],
+             'openhour'=>$data['openhour'],
+             'closehour'=>$data['closehour'],
+             'phone'=>$data['phone'],
+             'image'=>$data['image'],
+             'category_id'=>$data['category']
+        );
+        $user=User::where('role','admin')->get();
+
+        Notification::send($user,new testService($info));
+    }
+
         $categories= Category::where(['parent_id'=>0])->get();
         $category_dropdown = '<option selected value="" disabled>Select</option>';
         foreach($categories as $cat){

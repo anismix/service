@@ -1,5 +1,9 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Category;
+use App\Post;
+use App\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
@@ -23,6 +27,9 @@ class AdminController extends Controller
         }
         return view('admin.admin_login');
     }
+    public function verify($id,$array){
+        return view('admin.verify');
+    }
 
     public function dashbord(){
       //  if(Session::has('sessionEmail')){
@@ -31,7 +38,12 @@ class AdminController extends Controller
       //  else {
        //     return redirect('/admin')->with('flash_message_error','Please Log in to access');
        // }
-      return view('admin.dashbord');
+       $categorie=Category::count();
+       $user=User::where('role','<>','admin')->count();
+       $services=Service::count();
+       $post=Post::count();
+     $poste= Post::orderBy('id', 'desc')->take(3)->get();
+      return view('admin.dashbord')->with(compact('categorie','user','services','post'));
     }
 
     public function logout(){
