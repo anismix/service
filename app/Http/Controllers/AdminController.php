@@ -27,8 +27,11 @@ class AdminController extends Controller
         }
         return view('admin.admin_login');
     }
-    public function verify($id,$array){
+    public function verify($info){
+        dd($info);
+        dd($info->toArray());
         return view('admin.verify');
+
     }
 
     public function dashbord(){

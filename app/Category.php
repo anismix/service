@@ -13,4 +13,7 @@ class Category extends Model
     public function categories(){
         return $this->hasMany('App\Category','parent_id');
     }
+    public function services(){
+        return $this->hasMany(Service::class,'category_id','id');
+    }
 }

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Country;
 use Illuminate\Http\Request;
 use Auth;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
 use Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Socialite;
 class UserController extends Controller
 {
@@ -158,8 +159,34 @@ public function logout(Request $request){
 public function deleteUser($id){
     if(!empty($id)){
         User::where(['id'=>$id])->delete();
-        return  redirect()->back()->with('flash_message_success','category has deleted success');
+        return  redirect()->back()->with('flash_message_succ','category has deleted success');
 }
+}
+public function forgetPassword(Request $request){
+    $data = $request->all();
+    if($request->isMethod('post')){
+        $emailcount =User::where('email',$data['email'])->count();
+        if($emailcount ==0){
+            return redirect()->back()->with('flash_message_error','Email does not Exist');
+        }
+        $userdetails= User::where('email',$data['email'])->first();
+        $random_password=Str::random(8);
+        $new_password= bcrypt($random_password);
+        User::where('email',$data['email'])->update(['password'=>$new_password]);
+        $email=$data['email'];
+        $name=$userdetails->name;
+        $message=[
+            'email'=>$data['email'],
+            'password'=>$random_password,
+            'name'=>$name
+        ];
+        Mail::send('emails.forgetpassword', $message, function ($message)use($email) {
+            $message->to($email)->subject('New Password - E-Service');
+
+        });
+        return redirect('/login-register')->with('flash_message_succ','Please Check your email for new password');
+    }
+    return view('user.forgetpassword');
 }
 
 }

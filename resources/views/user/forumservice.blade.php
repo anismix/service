@@ -13,7 +13,7 @@
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordian" href="#{{ $cat->id }}">
                                             <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                            {{ $cat->name }}
+                                            {{ $cat->name  }}
                                         </a>
                                     </h4>
                                 </div>
@@ -40,13 +40,15 @@
             <div class="single-blog-post">
                 <div class="post-meta">
                     <ul mt-8>
-                      @foreach ( $user as $use )
+                      @foreach ($post as $post )
+                        @foreach ( $user as $use )
                           @if ($use->id === $post->user_id)
-                        <li><i class="fa fa-user"></i> {{ $use->name}}</li>
-                        @endif
+                        <li><i class="fa fa-user"></i> {{ $use->name }}</li>
+                         @endif
+                         @endforeach
                         @endforeach
-                        <li><i class="fa fa-clock-o"></i> {{  $post->time}}</li>
-                        <li><i class="fa fa-calendar"></i>{{   $post->date }}</li>
+                        <li><i class="fa fa-clock-o"></i> {{  $post->time }}</li>
+                        <li><i class="fa fa-calendar"></i>{{  $post->date }}</li>
                         @foreach ( $service as $ser )
                         @if ($ser->id === $post->service_id)
                         <i> {{ $ser->name }} </i>

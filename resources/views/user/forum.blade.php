@@ -43,15 +43,15 @@
                 <div class="post-meta">
                     <ul mt-8>
                       @foreach ( $user as $use )
-                          @if ($use->id === $post->user_id)
-                        <li><i class="fa fa-user"></i> {{ $use->name}}</li>
+                          @if($use->id === $post->user_id)
+                        <li><i class="fa fa-user"></i>{{ $use->name}}</li>
                         @endif
                         @endforeach
                         <li><i class="fa fa-clock-o"></i> {{  $post->time}}</li>
                         <li><i class="fa fa-calendar"></i>{{   $post->date }}</li>
                         @foreach ( $service as $ser )
                         @if ($ser->id === $post->service_id)
-                        <i> {{ $ser->name }} </i>
+                        <li> {{ $ser->name }} </li>
                         @endif
                         @endforeach
                     </ul>
@@ -63,7 +63,8 @@
                         <i class="fa fa-star-half-o"></i>
                     </span>
                 </div>
-                <p class="mb-8">{{ $post->post }}</p>
+
+           <a href="{{ url('/postdetail/'.$post->id) }}">     <p class="mb-8">{{ $post->post }}</p><a>
                 <p > <button   class="btn btn-default" data-toggle="collapse" data-target="#demo{{ $post->id }}" >Comment</button></p>
 
                 <div id="demo{{ $post->id }}" class="collapse">

@@ -14,7 +14,7 @@ class CreateServicesTable extends Migration
     public function up()
     {
         Schema::create('services', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('name');
             $table->string('adress');
             $table->string('openhour');
@@ -25,7 +25,7 @@ class CreateServicesTable extends Migration
             $table->unsignedInteger("category_id");
             $table->foreign("category_id")->references("id")->on('categories')->onDelete('cascade');
             $table->unsignedInteger("user_id")->nullable();
-         //   $table->foreign("user_id")->references("id")->on('users')->onDelete('cascade');
+           $table->foreign("user_id")->references("id")->on('users')->onDelete('cascade');
          $table->timestamps();
         });
     }

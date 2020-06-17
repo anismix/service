@@ -6,7 +6,7 @@
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
                             <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                            <li><a href="#"><i class="fa fa-envelope"></i> eservicemanarate@gmail.com</a></li>
                         </ul>
                     </div>
                 </div>
@@ -33,27 +33,6 @@
                         <a href="{{ url('/') }}"><img src="{{ asset('img/frontend_images/home/logo.png') }}" alt="" /></a>
                     </div>
                     <div class="btn-group pull-right">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                USA
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Canada</a></li>
-                                <li><a href="#">UK</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                DOLLAR
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Canadian Dollar</a></li>
-                                <li><a href="#">Pound</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -63,7 +42,19 @@
                             @if(empty(Auth::check()))
                             <li><a href="{{ url('/login-register') }}"><i class="fa fa-lock"></i> Login</a></li>
                             @else
-
+                            @unless (auth()->user()->unreadNotifications->isEmpty())
+                            <li class="dropdown" id="profile-messages"><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">{{ auth()->user()->unreadNotifications->count() }} notification(s)</span><b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                  @foreach (auth()->user()->unreadNotifications as $notification)
+                                    <li><a href="{{ url('/postdetail/'.$notification->data ['id']) }}">
+                                    <i class="icon-user"></i> New comment in Your Post in {{  $notification->data['service'] }}
+                                    service.
+                                </a></li>
+                                  <li class="divider"></li>
+                                      @endforeach
+                                    </ul>
+                              </li>
+                              @endunless
                         <li><a href="{{ url('/account') }}"><i class="fa fa-user"></i> Account</a></li>
                         <li><a href="{{ url('/user-logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
                         @endif
@@ -89,25 +80,21 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="index.html" class="active">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-
-                                </ul>
-                            </li>
                             <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="{{ url('/blog') }}">Blog List</a></li>
 
                                 </ul>
                             </li>
-                            <li><a href="404.html">404</a></li>
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="{{ url('contact') }}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
+                        <form method="GET" action="{{ url('/search') }}">
+                        <input type="text" id="query" name="query" value="{{ request()->input('query') }}" placeholder="Search For Services"/>
+                        </form>
                     </div>
                 </div>
             </div>

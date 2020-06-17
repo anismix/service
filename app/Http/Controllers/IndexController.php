@@ -18,4 +18,10 @@ class IndexController extends Controller
 
         return view('index')->with(compact('serviceAll','categorie'));
         }
+        public function search(Request $request){
+            $query=$request->input('query');
+            $serviceAll= Service::where('name','LIKE',"%$query%")->orderBy('id','DESC')->get();
+            $categorie=Category::with('categories')->where(['parent_id'=>0])->get();
+            return view('user.search')->with(compact('serviceAll','categorie'));
+        }
     }
