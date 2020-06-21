@@ -29,14 +29,13 @@
                 {{ csrf_field() }}
                 <div class="widget-box">
                         <div class="widget-box">
-
                                     <div class="control-group">
                                         <label class="control-label">Under Category</label>
                                         <div class="controls">
                                         <select name="category" style="width:220px;" >
-                                            <?php  echo $category_dropdown; ?>
+                                         <?php  echo $category_dropdown; ?>
                                         </select>
-                                        @error('category')
+                                         @error('category')
                                         <div class="error" style="color:red;">{{ $message }}</div>
                                         @enderror
                                         </div>

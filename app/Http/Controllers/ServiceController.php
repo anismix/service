@@ -89,49 +89,37 @@ class ServiceController extends Controller
             if($validator->fails()) {
                 return Redirect::back()->withErrors($validator);
             }
-         /**  $service->category_id=$data['category'];
-           $service->name=$data['name'];
-           $service->adress=$data['adress'];
-           $service->openhour=$data['openhour'];
-           $service->closehour=$data['closehour'];
-           $service->phone=$data['phone'];
 
-           $service->description=$data['description'];
-           if($request->hasFile('image')){
-               $image_tmp =$request->file('image');
-               if($image_tmp->isValid()){
-                   $extension =$image_tmp->getClientOriginalExtension();
-                   $filename = rand(111,99999).'.'.$extension;
-                   $large_image_path='img/backend_images/services/large/'.$filename;
-                   $medium_image_path='img/backend_images/services/medium/'.$filename;
-                   $samll_image_path='img/backend_images/services/small/'.$filename;
-                   //Rezise image
-                   Image::make($image_tmp)->save($large_image_path);
-                   Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
-                   Image::make($image_tmp)->resize(300,300)->save($samll_image_path);
-                   $service->image=$filename;
-               }
-           }
-           $service->user_id=auth()->user()->id;
-           $service->save();
-           return redirect()->back()->with('flash_message_succ','Service add Successfully');
 
-        */
+            $image_tmp =$request->file('image');
+
+                $extension =$image_tmp->getClientOriginalExtension();
+                $filename = rand(111,99999).'.'.$extension;
+                $large_image_path='img/backend_images/services/large/'.$filename;
+                $medium_image_path='img/backend_images/services/medium/'.$filename;
+                $samll_image_path='img/backend_images/services/small/'.$filename;
+                //Rezise image
+                Image::make($image_tmp)->save($large_image_path);
+                Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
+                Image::make($image_tmp)->resize(300,300)->save($samll_image_path);
+
+
+   $logeedIn =Auth::user()->id;
         $data =$request->all();
         $info=array(
+            'user'=>$logeedIn,
             'name'=>$data['name'],
              'adress'=>$data['adress'],
              'openhour'=>$data['openhour'],
              'closehour'=>$data['closehour'],
              'phone'=>$data['phone'],
-             'image'=>$data['image'],
+             'image'=>$filename,
+             'description'=>$data['description'],
              'category_id'=>$data['category']
         );
         $user=User::where('role','admin')->get();
-
         Notification::send($user,new testService($info));
     }
-
         $categories= Category::where(['parent_id'=>0])->get();
         $category_dropdown = '<option selected value="" disabled>Select</option>';
         foreach($categories as $cat){
@@ -142,6 +130,7 @@ class ServiceController extends Controller
             }
 
         }
+
         return view('user.add_service')->with(compact('category_dropdown'));
     }
     public function viewservices(){

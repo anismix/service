@@ -24,14 +24,19 @@ class ContactController extends Controller
            if($validator->fails()) {
             return Redirect::back()->withErrors($validator);
         }
-        $info= array(
+        $message=[
             'name' => $data['name'],
             'email' => $data['email'],
             'subject' => $data['subject'],
             'message'=>$data['message']
-        );
-        Mail::to('eservicemanarate@gmail.com')->send(new ContactMail($info));
-    }
+
+        ];
+        Mail::send('emails.contact', $message, function ($message){
+            $message->to('eservicemanarate@gmail.com')->subject('Contact Email - E-Service');
+    //    Mail::to('eservicemanarate@gmail.com')->send(new ContactMail($info));
+    });}
     return view('user.contact');
     }
 }
+
+

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
@@ -61,12 +60,26 @@ class UserController extends Controller
                if($validator->fails()) {
                 return Redirect::back()->withErrors($validator);
             }
+            $user = new User;
+            $user->name=$data['name'];
+            $user->email=$data['email'];
 
-                $user = new User;
-                $user->name=$data['name'];
-                $user->email=$data['email'];
-                $user->password= bcrypt($data['myPassword']);
-                $user->save();
+            $user->password= bcrypt($data['myPassword']);
+            $user->save();
+            $email=$data['email'];
+            $email1=base64_encode($data['email']);
+            $message=[
+                'email'=>$data['email'],
+                 'name'=>$data['name'],
+                 'code'=>$email1
+            ];
+            Mail::send('emails.ConfirmEmail', $message, function ($message)use($email) {
+                $message->to($email)->subject('Email Confirmation - E-Service');
+
+            });
+
+            return redirect()->back()->with('flash_message_succ','Confirm Email To login');
+
                if(Auth::attempt([ 'email' => $data['email'], 'password' => $data['myPassword']])){
                 $request->session()->put('frontsession',$data['email']);
                return redirect('/');
@@ -93,6 +106,37 @@ class UserController extends Controller
 
     }
 }
+public function confirm($email){
+   $email =base64_decode($email);
+ //  dd($email);
+   $user=User::where('email',$email)->count();
+
+   if($user>0){
+
+          $userdet= User::where('email',$email)->first();
+          if($userdet->email_verified_at!=null){
+              return redirect('login-register')->with('flash_message_error','Your account already activated');
+          }
+          else{
+              User::where('email',$email)->update(['email_verified_at'=> date('Y-m-d H:i:s',time())]);
+              $message=[
+                'email'=>$email,
+                 'name'=>$userdet->name,
+
+            ];
+            Mail::send('emails.Welcome', $message, function ($message)use($email) {
+                $message->to($email)->subject('Welcome Email   E-Service');
+            });
+            return redirect('login-register')->with('flash_message_error','Your account has been activated .Now you can login');
+
+
+          }
+   }
+   else{
+       abort(404,"dddddddddd");
+   }
+
+}
 public function login(Request $request ){
     if($request->isMethod('post')){
         $data=$request->all();
@@ -105,14 +149,17 @@ public function login(Request $request ){
             return Redirect::back()->withErrors($validator);
         }
 
-        if(Auth::attempt(['email' => $data['email'], 'password' => $data['password']])){
+        if(Auth::attempt(['email' => $data['email'], 'password' => $data['password']]) ){
+            $email_verif=User::where('email',$data['email'])->first();
+            if($email_verif->email_verified_at ==null){
+                return redirect()->back()->with('flash_message_error','Your account is not verfied Yet');
+            }
             $request->session()->put('frontsession',$data['email']);
             return redirect('/');
 
-
         }
         else{
-            return redirect()->back()->with('flash_message_error','Email or password Incorrect');
+
         }
     }
 

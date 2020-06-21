@@ -11,6 +11,7 @@ class testService extends Notification
 {
     use Queueable;
      public $info;
+
     /**
      * Create a new notification instance.
      *
@@ -20,6 +21,7 @@ class testService extends Notification
     {
         //
         $this->info=$info;
+
     }
 
     /**
@@ -56,12 +58,14 @@ class testService extends Notification
     public function toArray($notifiable)
     {
         return [
+            'user'=>$this->info['user'],
             'name'=>$this->info['name'],
             'adress'=>$this->info['adress'],
             'openhour'=>$this->info['openhour'],
             'closehour'=>$this->info['closehour'],
             'phone'=>$this->info['phone'],
             'image'=>$this->info['image'],
+             'description'=>$this->info['description'],
             'category_id'=>$this->info['category_id'],
             'typeNotification' => 'App\Notifications\testService'
         ];

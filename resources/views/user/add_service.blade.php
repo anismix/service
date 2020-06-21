@@ -24,6 +24,7 @@
                     {{ csrf_field() }}
                     <div class="control-group">
                         <div class="row">
+                            <input type="hidden" value="{{ auth()->user()->id }}" name="user">
                             <div class="col-sm-4 form-group">
                                   <label>Category:</label>
                                        <select  name="category" class="form-control" placeholder="Under Category" >

@@ -34,7 +34,7 @@ Route::get('/admin/chek_pwd','AdminController@checkpwd');
 Route::match(['get', 'post'], '/admin/update_pwd', 'AdminController@updatePwd');
 Route::get('/admin/dashbord','AdminController@dashbord');
 Route::get('/logout','AdminController@logout');
-Route::get('/verifyservice/{notification}','AdminController@verify')->name('verifyservice');
+Route::match(['get', 'post'],'/verifyservice/{notification}','AdminController@verify')->name('verifyservice');
 
 //CategoryController
 Route::match(['get', 'post'], '/admin/add-category','CategoryController@addCategory');
@@ -58,6 +58,7 @@ Route::match(['get', 'post'], '/check-email', 'UserController@checkEmail');
 Route::match(['get', 'post'], '/forget-password', 'UserController@forgetPassword');
 Auth::routes();
 Route::get('/login-register', 'UserController@userLoginRegister');
+Route::get('/confirm/{code}', 'UserController@confirm')->name('confirm');
 Route::post('/user-register','UserController@register');
 Route::post('/user-login','UserController@login');
 Route::get('/user-logout','UserController@logout');
