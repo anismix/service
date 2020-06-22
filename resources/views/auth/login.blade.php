@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-        <title>Matrix Admin</title><meta charset="UTF-8" />
+        <title>E-Service Admin</title><meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="{{ asset('css/Backend_css/bootstrap.min.css') }}" />
 		<link rel="stylesheet" href="{{ asset('css/Backend_css/bootstrap-responsive.min.css') }}" />
@@ -28,7 +28,7 @@
 
             <form id="loginform" class="form-vertical" action="{{ url('admin') }}" method="post">
                 {{ csrf_field() }}
-				 <div class="control-group normal_text"> <h3><img src="{{ asset('img/backend_images/logo.png') }}" alt="Logo" /></h3></div>
+                 <div class="control-group normal_text"> <h3></h3></div>
                 <div class="control-group">
                     <div class="controls">
                         <div class="main_input_box">

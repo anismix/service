@@ -97,39 +97,8 @@ $('.delCoupon').click(function(){
 
 $(document).ready(function(){
 
-      $("#passForm").validate({
-		rules:{
-			c_pass:{
-				required: true,
-				minlength:6,
-				maxlength:20
-			},
-			n_pass:{
-				required:true,
-				minlength:6,
-				maxlength:20
-
-			},
-			con_pass:{
-				required:true,
-				minlength:6,
-				maxlength:20,
-
-			}
-		},
-		errorClass: "help-inline",
-		errorElement: "span",
-		highlight:function(element, errorClass, validClass) {
-			$(element).parents('.control-group').addClass('error');
-		},
-		unhighlight: function(element, errorClass, validClass) {
-			$(element).parents('.control-group').removeClass('error');
-			$(element).parents('.control-group').addClass('success');
-		}
-    });
-
         $('#myPassword').passtrength({
-          minChars: 4,
+          minChars: 8,
           passwordToggle: true,
           tooltip: true,
           eyeImg:"/img/frontend_images/eye.svg"

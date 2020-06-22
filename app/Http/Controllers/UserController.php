@@ -152,21 +152,20 @@ public function login(Request $request ){
         if(Auth::attempt(['email' => $data['email'], 'password' => $data['password']]) ){
             $email_verif=User::where('email',$data['email'])->first();
             if($email_verif->email_verified_at ==null){
-                return redirect()->back()->with('flash_message_error','Your account is not verfied Yet');
+                return redirect()->back()->with('flash_message_succ','Your account is not verfied Yet');
             }
             $request->session()->put('frontsession',$data['email']);
             return redirect('/');
 
         }
         else{
-
+            return redirect()->back()->with('flash_message_error','Incorrect Email or Password');
         }
     }
 
 }
 public function checkpass(Request $request){
-
-           $data=$request->all();
+            $data=$request->all();
             $c_pass=$data["c_pass"];
             $user_id=Auth::User()->id;
             $c_passe=User::where('id',$user_id)->first();
@@ -179,10 +178,11 @@ public function checkpass(Request $request){
 
 }
 public function updatepass(Request $request){
+
     if($request->isMethod('post')){
         $data =$request->all();
         $c_pass=$data["c_pass"];
-        $old_pass=User::where('id',Auth::User()->id)->first();
+        $old_pass=User::where('id',auth()->user()->id)->first();
         if(Hash::check($c_pass,$old_pass->password)){
                   $new_pass=$data["n_pass"];
                   $new_passe=bcrypt($new_pass);
@@ -190,13 +190,25 @@ public function updatepass(Request $request){
                   return redirect()->back()->with('flash_message_succ','Password Update Successfully');
         }
         else{
-            redirect()->back()->with('flash_message_error','Password Incorrect');
+            return redirect()->back()->with('flash_message_error','Password Incorrect');
         }
     }
+    redirect('/account');
+
 }
 public function account(Request $request){
+    $user =User::where('id',auth()->user()->id)->first();
+    if($request->isMethod('post')){
+        $data=$request->all();
+      $user->name=$data['name'];
+      $user->adress=$data['adress'];
+      $user->city=$data['city'];
+      $user->name=$data['pincode'];
+      $user->mobile=$data['mobile'];
+      $user->save();
+    }
 
-    return view('user.account');
+    return view('user.account')->with(compact('user'));
 }
 public function logout(Request $request){
     Auth::logout();

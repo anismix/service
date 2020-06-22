@@ -7,17 +7,7 @@
                 @include('frontLayout.front_sidebar')
             </div><!--/category-products-->
 
-                    <div class="price-range"><!--price-range-->
-                        <h2>Price Range</h2>
-                        <div class="well">
-                             <div class="slider slider-horizontal" style="width: 182px;"><div class="slider-track"><div class="slider-selection" style="left: 41.6667%; width: 33.3333%;"></div><div class="slider-handle round left-round" style="left: 41.6667%;"></div><div class="slider-handle round" style="left: 75%;"></div></div><div class="tooltip top" style="top: -30px; left: 73.6667px;"><div class="tooltip-arrow"></div><div class="tooltip-inner">250 : 450</div></div><input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" style=""></div><br>
-                             <b>$ 0</b> <b class="pull-right">$ 600</b>
-                        </div>
-                    </div><!--/price-range-->
 
-                    <div class="shipping text-center"><!--shipping-->
-                        <img src="images/home/shipping.jpg" alt="">
-                    </div><!--/shipping-->
 
                 </div>
             </div>
@@ -60,63 +50,19 @@
                 <div class="category-tab shop-details-tab"><!--category-tab-->
                     <div class="col-sm-12">
                         <ul class="nav nav-tabs">
-                            <li><a href="#details" data-toggle="tab">Details</a></li>
-                            <li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>
-                            <li><a href="#tag" data-toggle="tab">Tag</a></li>
-                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+
+                            <li><a href="#companyprofile" data-toggle="tab">Description</a></li>
+
+                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews </a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
+                        <div class="tab-pane fade active in" id="companyprofile">
+                            <div class="col-sm-12">
 
+                                <p><b>Description</b></p>
+                                <p>{{ $servicedet->description }}</p>
 
-                        <div class="tab-pane fade" id="companyprofile">
-                            <div class="col-sm-3">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img src="images/home/gallery1.jpg" alt="">
-                                            <h2>$56</h2>
-                                            <p>Easy Polo Black Edition</p>
-                                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img src="images/home/gallery3.jpg" alt="">
-                                            <h2>$56</h2>
-                                            <p>Easy Polo Black Edition</p>
-                                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img src="images/home/gallery2.jpg" alt="">
-                                            <h2>$56</h2>
-                                            <p>Easy Polo Black Edition</p>
-                                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img src="images/home/gallery4.jpg" alt="">
-                                            <h2>$56</h2>
-                                            <p>Easy Polo Black Edition</p>
-                                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -125,16 +71,14 @@
                         <div class="tab-pane fade active in" id="reviews">
                             <div class="col-sm-12">
                                 <ul>
-                                    <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-                                    <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                                    <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
+
                                 </ul>
 
                                 <p><b>Write Your Review</b></p>
 
                                 <form action="{{ url('/postblog/'.$servicedet->id) }}" method="POST">
                                     {{ csrf_field() }}
-                                    <textarea name="post" ></textarea>
+                                    <textarea type="text" name="post" style="width:850px;height: 150px; border-radius: 5px;"  ></textarea>
                                     @error('post')
                                     <div class="error" style="color:red;">{{ $message }}</div>
                                    @enderror
@@ -166,9 +110,9 @@
                                         <div class="single-products">
                                             <div class="productinfo text-center">
                                                 <img style="width:160px;"src="{{ asset('img/backend_images/services/small/'.$item->image)}}" alt="" />
-                                                <h2>$ {{ $item->name}}</h2>
+                                                <h2> {{ $item->name}}</h2>
                                                 <p>{{ $item->adress }}</p>
-                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                                <a href="{{ url('/service/'.$servicedet->id )}}" class="btn btn-default add-to-cart"><i class="fa fa-info"></i>Detail</a>
                                             </div>
                                         </div>
                                     </div>

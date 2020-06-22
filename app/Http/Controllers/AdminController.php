@@ -2,17 +2,20 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Notification as AppNotification;
+
 use App\Post;
 use App\Service;
-use App\Notification;
+
+use App\Notifications\ComplaintService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
+use Illuminate\Support\Facades\Notification;
 use App\User;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
 use  Illuminate\Support\Facades\Hash;
+
 class AdminController extends Controller
 {
     //
@@ -33,7 +36,7 @@ class AdminController extends Controller
     }
     public function verify($info,Request $request){
         $notifications =auth()->user()->unreadNotifications()->find($info);
-   //   dd($notifications);
+     // dd($notifications);
 
         if($request->isMethod('post')){
 
@@ -64,7 +67,7 @@ class AdminController extends Controller
            $service->category_id=$notifications->data['category_id'];
            $service->user_id=$notifications->data['user'];
            $service->save();
-
+           $notifications->markAsRead();
            return redirect('/admin/view-service')->with('flash_message_succ','Service add Successfully');
 
         }
@@ -74,7 +77,28 @@ class AdminController extends Controller
         return view('admin.verify')->with(compact('notifications','categorie'));
 
     }
+ public function complaint($id,$service,Request $request){
 
+    if($request->isMethod('post')){
+          $data=$request->all();
+          $validator = Validator::make($data,[
+           'complaint'=>'required|min:5'
+           ]);
+
+            // dd($data);
+           if($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+        $info=array(
+             'complaint'=>$data['complaint'],
+             'service'=>$service
+             );
+        $user=User::where('id',$id)->first();
+        Notification::send($user,new ComplaintService($info));
+        return Redirect::back()->with('flash_message_succ','Complaint send');
+      }
+     return view('admin.complaint')->with(compact('id','service'));
+ }
 
     public function dashbord(){
       //  if(Session::has('sessionEmail')){
@@ -84,11 +108,12 @@ class AdminController extends Controller
        //     return redirect('/admin')->with('flash_message_error','Please Log in to access');
        // }
        $categorie=Category::count();
-       $user=User::where('role','<>','admin')->count();
+       $user=User::count();
        $services=Service::count();
        $post=Post::count();
      $poste= Post::orderBy('id', 'desc')->take(3)->get();
-      return view('admin.dashbord')->with(compact('categorie','user','services','post'));
+     $usere=User::get();
+      return view('admin.dashbord')->with(compact('categorie','user','services','post','usere','poste'));
     }
 
     public function logout(){
@@ -114,13 +139,20 @@ class AdminController extends Controller
            if($request->isMethod('post')){
             $data =$request->all();
            $check_pwd=User::where(['email'=>Auth::user()->email])->first();
-           $current_pwd=$data['new_pwd'];
+           $current_pwd=$data['current_pwd'];
+           $new_pwd=$data['new_pwd'];
+           $con_pwd=$data['confirm_pwd'];
+     //      dd(Hash::check($current_pwd, $check_pwd->password));
            if(Hash::check($current_pwd, $check_pwd->password)){
-               $password = bcrypt($data['new_pwd']);
+            if($new_pwd!=$con_pwd){
+                return redirect('/admin/setting')->with('flash_message_error',"New Password And Confirm Password don't match  ");
+            }
+            $password = bcrypt($data['new_pwd']);
                User::where('id',$check_pwd->id)->update(['password'=>$password]);
                return redirect('/admin/setting')->with('flash_message_succ','Password Update Successfully');
            }
            else{
+
            return redirect('/admin/setting')->with('flash_message_error','Incorrect Password');
            }
        }

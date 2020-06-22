@@ -16,7 +16,7 @@
                     <div class="panel-body">
                         <ul>
                             @foreach($cat->categories as $sub)
-                            <li><a href="{{ $sub->name }}">{{ $sub->name }} </a></li>
+                            <li><a href="{{ url('/services/'.$sub->name) }}">{{ $sub->name }} </a></li>
                            @endforeach
 
                         </ul>

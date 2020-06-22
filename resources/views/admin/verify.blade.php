@@ -10,6 +10,9 @@
           <div class="widget-box">
             <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
               <h5>Verify Service </h5>
+              <form action="{{ route('complaintservice',['id'=>$notifications->data['user'],'service'=>$notifications->data['name']]) }}" method="GET"  >
+                    <input type="submit" value="Refused service" class="btn btn-danger " style="float: right; margin:2px;">
+            </form>
             </div>
             @if (Session::has('flash_message_succ'))
             <div class="alert alert-success alert-block">
@@ -113,9 +116,12 @@
 
                 <div class="form-actions">
                     <input type="submit" value="Add Service" class="btn btn-success">
-                  </div>
 
-                                  </form>
+              </form>
+
+            </div>
+
+
             </div>
           </div>
         </div>

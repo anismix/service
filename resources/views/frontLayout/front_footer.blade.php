@@ -13,14 +13,14 @@
                         <div class="video-gallery text-center">
                             <a href="#">
                                 <div class="iframe-img">
-                                    <img src="{{ asset('img/frontend_images/home/iframe1.png')}}" alt="" />
+                                    <img src="{{ asset('img/frontend_images/home/health.jpg')}}" alt="" />
                                 </div>
                                 <div class="overlay-icon">
                                     <i class="fa fa-play-circle-o"></i>
                                 </div>
                             </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
+                            <p>Health & Care</p>
+
                         </div>
                     </div>
 
@@ -28,14 +28,14 @@
                         <div class="video-gallery text-center">
                             <a href="#">
                                 <div class="iframe-img">
-                                    <img src="{{ asset('img/frontend_images/home/iframe2.png')}}" alt="" />
+                                    <img src="{{ asset('img/frontend_images/home/gym.jpg')}}" alt="" />
                                 </div>
                                 <div class="overlay-icon">
                                     <i class="fa fa-play-circle-o"></i>
                                 </div>
                             </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
+                            <p>Gym</p>
+
                         </div>
                     </div>
 
@@ -43,36 +43,35 @@
                         <div class="video-gallery text-center">
                             <a href="#">
                                 <div class="iframe-img">
-                                    <img src="{{ asset('img/frontend_images/home/iframe3.png')}}" alt="" />
+                                    <img src="{{ asset('img/frontend_images/home/fastfood.jpg')}}" alt="" />
                                 </div>
                                 <div class="overlay-icon">
                                     <i class="fa fa-play-circle-o"></i>
                                 </div>
                             </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
+                            <p>Fast Food</p>
+                            <h2></h2>
                         </div>
                     </div>
-
                     <div class="col-sm-3">
-                        <div class="video-gallery text-center">
-                            <a href="#">
-                                <div class="iframe-img">
-                                    <img src="{{ asset('img/frontend_images/home/iframe4.png')}}" alt="" />
-                                </div>
-                                <div class="overlay-icon">
-                                    <i class="fa fa-play-circle-o"></i>
-                                </div>
-                            </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
+                            <div class="video-gallery text-center">
+                                <a href="#">
+                                    <div class="iframe-img">
+                                        <img src="{{ asset('img/frontend_images/home/patss.jpg')}}" alt="" />
+                                    </div>
+                                    <div class="overlay-icon">
+                                        <i class="fa fa-play-circle-o"></i>
+                                    </div>
+                                </a>
+                                <p>Pastry</p>
+                                <h2></h2>
+                            </div>
                         </div>
-                    </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="address">
                         <img src="{{ asset('img/frontend_images/home/map.png')}}" alt="" />
-                        <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
+                        <p>Immeuble 158 - 2ème étage Avenue kouwait Hammamet، 8050</p>
                     </div>
                 </div>
             </div>

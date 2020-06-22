@@ -20,21 +20,13 @@
 
                 <div class="login-form"><!--login form-->
                     <h2>Update your account</h2>
-                    <form class="registerForm" id="accountForm" action="{{ url('/account') }}" method="post">
+                    <form  action="{{ url('/account') }}" method="post">
                         {{ csrf_field() }}
-                    <input name="name" value="" id="name" type="text" placeholder="Name"/>
-                        <input value="" name="adress" id="adress" type="text" placeholder="Adress"/>
-                        <input name="city" id="city" type="text"  placeholder="City"/>
-                        <input name="state" id="state" type="text" placeholder="State"  />
-                        <select id="country" name="country">
-
-                          <option>Select Country</option>
-                            <option value=""></option>
-
-                        </select>
-                        <input style="margin-top:10px;" name="pincode" id="pincode" type="text" placeholder="Pincode"  />
-                        <input name="mobile" id="mobile" type="text" placeholder="Mobile"  />
-
+                    <input name="name" value="{{ $user->name }}" id="name" type="text" placeholder="Name"/>
+                        <input value="{{ $user->adress }}" name="adress" id="adress" type="text" placeholder="Adress"/>
+                        <input name="city" id="city" type="text" value="{{ $user->city }}"  placeholder="City"/>
+                        <input style="margin-top:10px;" name="pincode" id="pincode" value="{{ $user->pincode }}" type="text" placeholder="Pincode"  />
+                        <input name="mobile" id="mobile" type="text" placeholder="Mobile" value="{{ $user->mobile }}"  />
                         <button type="submit" class="btn btn-default">Update</button>
                     </form>
                 </div><!--/login form-->
@@ -47,9 +39,9 @@
                     <h2>Update Password</h2>
                     <form class="registerForm" id="passForm" action="{{ url('/update-pass') }}" method="post">
                         {{ csrf_field() }}
-                        <input name="c_pass" id="c_pass"id="myPassword" type="password" placeholder="Current Password"/>
+                        <input   name="c_pass"   type="password" placeholder="Current Password"/>
                         <span id="check"></span>
-                        <input name="n_pass" id="n_pass" type="password" placeholder="New Password"/>
+                        <input name="n_pass"   id="n_pass" type="password" placeholder="New Password"/>
                         <input  name="con_pass" id="myPassword" type="password" placeholder="Confirm Password"/>
                         <button type="submit" class="btn btn-default">Update Password</button>
                     </form>
@@ -57,5 +49,5 @@
             </div>
         </div>
     </div>
-</section><
+</section>
 @endsection

@@ -35,7 +35,7 @@ Route::match(['get', 'post'], '/admin/update_pwd', 'AdminController@updatePwd');
 Route::get('/admin/dashbord','AdminController@dashbord');
 Route::get('/logout','AdminController@logout');
 Route::match(['get', 'post'],'/verifyservice/{notification}','AdminController@verify')->name('verifyservice');
-
+Route::match(['get', 'post'],'/complaintservice/{id}/{service}','AdminController@complaint')->name('complaintservice');
 //CategoryController
 Route::match(['get', 'post'], '/admin/add-category','CategoryController@addCategory');
 Route::match(['get', 'post'], '/admin/view-users','UserController@User');
@@ -67,9 +67,10 @@ Route::get('/user-logout','UserController@logout');
 Route::group(['middleware' => ['acces']], function () {
     Route::match(['get', 'post'], '/account', 'UserController@account');
     Route::post('/check-pass','UserController@checkpass');
-    Route::post('/update-pass','UserController@updatepass');
-    Route::post('/update-pass','UserController@updatepass');
+    Route::match(['get', 'post'],'/update-pass','UserController@updatepass');
+
     Route::match(['get', 'post'], '/add-service','ServiceController@userService');
+    Route::match(['get', 'post'], '/complaint/{id}','ServiceController@complaint')->name('complaint');
     Route::post('/postblog/{id}','BlogController@addPost');
     Route::post('/comment/{id}','CommentController@addComment');
     Route::post('/commentdetail/{id}','CommentController@addCommentdetail');
@@ -79,7 +80,7 @@ Route::group(['middleware' => ['acces']], function () {
 Route::get('/blog/{name}','BlogController@listBlog');
 Route::get('/blog','BlogController@index');
 Route::get('/postdetail/{id}','BlogController@postDetail');
-
+Route::get('/postdetail/{id}/{notif}','BlogController@postDetaile')->name('postdetail');
 Route::get('login/facebook', 'UserController@redirectToProvider');
 Route::get('login/facebook/callback', 'UserController@handleProviderCallback');
 

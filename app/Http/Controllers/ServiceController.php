@@ -131,7 +131,7 @@ class ServiceController extends Controller
 
         }
 
-        return view('user.add_service')->with(compact('category_dropdown'));
+        return view('user.add_service')->with(compact('category_dropdown'))->with('flash_message_succ','Wait for your service will be approved by the administrator ');
     }
     public function viewservices(){
         $service= service::get();
@@ -254,6 +254,12 @@ class ServiceController extends Controller
          $categorie=Category::with('categories')->where(['parent_id'=>0])->get();
          return view('admin.service.details')->with(compact('servicedet','categorie','related_service'));
 
+    }
+    public function complaint($id){
+        $complaint=auth()->user()->unreadNotifications()->find($id);
+       // dd($complaint);
+       $complaint->markAsRead();
+        return view ('user.complaint')->with(compact('complaint'));
     }
 
 }

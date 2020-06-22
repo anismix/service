@@ -57,12 +57,22 @@ class BlogController extends Controller
          foreach($serviceid as $service){
          $post[]=Post::where('service_id',$service->id)->get();
     }
-         // dd($post);
-
-
+        //  dd($post);
      return view('user.forumservice')->with(compact('categorie','post','user','service','comment'));
     }
     public function postDetail($id){
+        $categorie=Category::with('categories')->where(['parent_id'=>0])->get();
+        $user=User::get();
+         $comment=Comment::get();
+         $serviceid=Service::where('category_id',$id)->get();
+         $post=Post::where('id',$id)->get();
+
+
+    return view('user.postdetail')->with(compact('categorie','post','user','service','comment'));
+    }
+    public function postDetaile($id,$notif){
+        $notifcation =auth()->user()->unreadNotifications()->find($notif);
+//        $notifcation->markAsRead();
         $categorie=Category::with('categories')->where(['parent_id'=>0])->get();
         $user=User::get();
          $comment=Comment::get();

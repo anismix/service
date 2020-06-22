@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="{{ url('/') }}"><img src="{{ asset('img/frontend_images/home/logo.png') }}" alt="" /></a>
+                        <a href="{{ url('/') }}"><img src="{{ asset('img/frontend_images/home/logo.png') }}" style="width:150px;" alt="" /></a>
                     </div>
                     <div class="btn-group pull-right">
                     </div>
@@ -46,12 +46,19 @@
                             <li class="dropdown" id="profile-messages"><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">{{ auth()->user()->unreadNotifications->count() }} notification(s)</span><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                   @foreach (auth()->user()->unreadNotifications as $notification)
-                                    <li><a href="{{ url('/postdetail/'.$notification->data ['id']) }}">
+                                  @if ($notification->data['typeNotification']==='App\\Notifications\\commentReply')
+                                    <li><a href="{{ route('postdetail', ['id'=>$notification->data['id'],'notif'=>$notification->id]) }}">
                                     <i class="icon-user"></i> New comment in Your Post in {{  $notification->data['service'] }}
                                     service.
                                 </a></li>
+                                 @endif
                                   <li class="divider"></li>
-                                      @endforeach
+                                  @if ($notification->data['typeNotification']==='App\\Notifications\\ComplaintService')
+                                  <li><a href="{{ route('complaint', ['id'=>$notification->id]) }}">
+                                        <i class="icon-user"></i> Adding {{  $notification->data['service'] }} service declined
+                                    </a></li>
+                                  @endif
+                                  @endforeach
                                     </ul>
                               </li>
                               @endunless
