@@ -77,8 +77,43 @@ class AdminController extends Controller
         return view('admin.verify')->with(compact('notifications','categorie'));
 
     }
- public function complaint($id,$service,Request $request){
+    public function verifyupdate($info,Request $request){
+        $notifications =auth()->user()->unreadNotifications()->find($info);
+     // dd($notifications);
 
+        if($request->isMethod('post')){
+
+               $data=$request->all();
+
+               $validator = Validator::make($data,[
+                'category'=>'required',
+                'name'=>'required|min:3|max:25',
+                'adress'=>'required|min:6|max:35',
+                'openhour'=>'required',
+                'closehour'=>'required',
+                'description'=>'required|min:6',
+                'phone'=>'required'
+               ]);
+
+               if($validator->fails()) {
+                return Redirect::back()->withErrors($validator);
+            }
+         //   dd($notifications);
+    Service::where(['id'=>$notifications->data['ide']])->update(['name'=>$data['name'],'adress'=>$data['adress']
+            ,'openhour'=>$data['openhour'],'closehour'=>$data['closehour'],'phone'=>$data['phone'],'image'=>$notifications->data['image'],'description'=>$data['description'],'category_id'=>$notifications->data['category_id'],'user_id'=>$notifications->data['user']]);
+           $notifications->markAsRead();
+           return redirect('/admin/view-service')->with('flash_message_succ','Service edit Successfully');
+
+        }
+     $categorie =Category::where('id',$notifications->data['user'])->first();
+        return view('admin.verifyu')->with(compact('notifications','categorie'));
+
+    }
+
+ public function complaint($id,$service,$idf,Request $request){
+//     dd($notification);
+    $notifications =auth()->user()->unreadNotifications()->find($idf);
+// dd($notifications);
     if($request->isMethod('post')){
           $data=$request->all();
           $validator = Validator::make($data,[
@@ -95,9 +130,10 @@ class AdminController extends Controller
              );
         $user=User::where('id',$id)->first();
         Notification::send($user,new ComplaintService($info));
+       $notifications->markAsRead();
         return Redirect::back()->with('flash_message_succ','Complaint send');
       }
-     return view('admin.complaint')->with(compact('id','service'));
+     return view('admin.complaint')->with(compact('id','service','idf'));
  }
 
     public function dashbord(){

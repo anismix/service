@@ -23,8 +23,7 @@
                 </div>
             </div>
         </div>
-    </div><!--/header_top-->
-
+</div><!--/header_top-->
     <div class="header-middle"><!--header-middle-->
         <div class="container">
             <div class="row">
@@ -39,6 +38,9 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href="{{ url('/add-service') }}"><i class="fa fa-plus-square"></i>Add service</a></li>
+                            @if(!empty(Auth::check()))
+                            <li><a href="{{ url('/My-service') }}"><i class="fa fa-spinner"></i>My services</a></li>
+                            @endif
                             @if(empty(Auth::check()))
                             <li><a href="{{ url('/login-register') }}"><i class="fa fa-lock"></i> Login</a></li>
                             @else
@@ -54,9 +56,11 @@
                                  @endif
                                   <li class="divider"></li>
                                   @if ($notification->data['typeNotification']==='App\\Notifications\\ComplaintService')
-                                  <li><a href="{{ route('complaint', ['id'=>$notification->id]) }}">
+                                  <li>
+                                      <a href="{{ route('complaint', ['id'=>$notification->id]) }}">
                                         <i class="icon-user"></i> Adding {{  $notification->data['service'] }} service declined
-                                    </a></li>
+                                    </a>
+                                 </li>
                                   @endif
                                   @endforeach
                                     </ul>

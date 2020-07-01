@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
@@ -13,7 +12,6 @@ use App\Notifications\commentReply;
 class CommentController extends Controller
 {
     //
-
     public function addComment(Request $request,$id){
         $post =Post::find($id);
         $data=$request->all();
@@ -70,7 +68,12 @@ class CommentController extends Controller
     $user=User::where('id',$post->user_id)->first();
     Notification::send($user,new commentReply($data));
      return redirect('/postdetail/'.$id);
-
     }
+    public function deleteComment($id){
+        if(!empty($id)){
+           Comment::where(['id'=>$id])->delete();
+            return  redirect()->back()->with('flash_message_success','Comment has deleted success');
     }
+   }
+   }
 

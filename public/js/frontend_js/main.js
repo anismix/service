@@ -29,32 +29,10 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
-        $("#selsize").change(function(){
-             var idsize = $(this).val();
-             $.ajax({
-                 type:'get',
-                 url:'/get-product-price',
-                 data:{idsize:idsize},
-                 success:function(resp){
-                     var arr= resp.split('#');
-
-                     $("#getprice").html("US" + arr[0]);
-                     $("#price").val(arr[0]);
-                     if(arr[1] == 0){
-                         $("#btncart").hide();
-                         $("#avail").text('Out Of Stock');
-                     }
-                     else {
-                        $("#btncart").show();
-                        $("#avail").text('In Stock');
-                     }
-                 },error:function(){
-                     alert("error");
-                 }
-
-             });
-        });
+$(".deleCu").click(function(){
+    var id= $(this).attr('rel');
+    var deleteFunction = $(this).attr('rel1');
+          window.location.href="/user/"+deleteFunction+"/"+id;
     });
     $(document).ready(function(){
         $(".changeImage").change(function(){

@@ -43,7 +43,10 @@
     <script src="{{ asset('js/frontend_js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{ asset('js/frontend_js/easyzoom.js')}}"></script>
     <script src="{{ asset('js/frontend_js/main.js')}}"></script>
+    <script src="{{ asset('js/frontend_js/main.js')}}"></script>
     <script src="{{ asset('js/frontend_js/jquery.validate.js')}}"></script>
     <script src="{{ asset('js/frontend_js/passtrength.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </body>
 </html>

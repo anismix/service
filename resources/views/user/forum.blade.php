@@ -5,8 +5,6 @@
 			<div class="row">
 				<div class="col-sm-3">
                     <div class="left-sidebar">
-
-
                 </div>
 
 </div>
@@ -32,17 +30,16 @@
                         @endforeach
                     </ul>
                     <span>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
+                            @if(!(empty(Auth::check())))
+                            @if( Auth::user()->id=='admin' || Auth::user()->id ===$post->user_id)
+                   <a href="{{ url('/edit-postu/'.$post->id) }}">     <i class="fa fa-edit" style="color:blue;" ></i></a>
+                     <a href="{{ url('/delete-postu/'.$post->id) }}">   <i class="fa fa-trash-o" style="color:red;" ></i></a>
+                            @endif
+                        @endif
                     </span>
                 </div>
-
            <a href="{{ url('/postdetail/'.$post->id) }}">     <p class="mb-8">{{ $post->post }}</p><a>
                 <p > <button   class="btn btn-default" data-toggle="collapse" data-target="#demo{{ $post->id }}" >Comment</button></p>
-
                 <div id="demo{{ $post->id }}" class="collapse">
                     <form method="POST"  action="{{ url('/comment/'.$post->id)}}">
                   {{ csrf_field() }}
@@ -52,12 +49,19 @@
                                          </div>
                                          @foreach ($comment as $com )
                                          @if ( $com->post_id === $post->id)
-                                     &nbsp;  @foreach ( $user as $use )
+                                        &nbsp;  @foreach ( $user as $use )
                                      @if ($use->id === $com->user_id)
                                      <div class="ml-15" style="background: #edf492;padding:8px;">
-                                     <span style="float:right;"> <i class="fa fa-user" ></i> {{ $use->name}}</span>
+                                     <span style="float:right;" style="color:black;"> <i class="fa fa-user" ></i> {{ $use->name}}
+                                     @if(!(empty(Auth::check())))
+                                         @if(  (Auth::user()->id=='admin' || Auth::user()->id ===$com->user_id))
+                                        <a id="deleCu" rel="{{ $com->id }}" rel1="delete-commentu" href="{{ url('/user/delete-commentu/'.$com->id) }}"><i class="fa fa-trash-o" style="color:red; " ></i></a>
+                                        @endif
+                                    @endif
+                                    </span>
                                    @endif
                                    @endforeach
+
                                          {{ $com->body }}
                                          </div>
                                          @endif
@@ -67,7 +71,6 @@
             </div>
             <hr>
             @endforeach
-
             <div class="pagination-area">
                 <ul class="pagination">
                     <li><a href="" class="active">1</a></li>

@@ -39,6 +39,7 @@ return array(
     'App\\Notification' => $baseDir . '/app/Notification.php',
     'App\\Notifications\\ComplaintService' => $baseDir . '/app/Notifications/ComplaintService.php',
     'App\\Notifications\\commentReply' => $baseDir . '/app/Notifications/commentReply.php',
+    'App\\Notifications\\editService' => $baseDir . '/app/Notifications/editService.php',
     'App\\Notifications\\testService' => $baseDir . '/app/Notifications/testService.php',
     'App\\Post' => $baseDir . '/app/Post.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

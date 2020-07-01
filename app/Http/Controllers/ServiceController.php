@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Category;
+use App\Notifications\editService;
 use App\Notifications\testService;
 use Image;
 use Illuminate\Support\Facades\Notification;
@@ -174,7 +175,7 @@ class ServiceController extends Controller
                 }
                 else  $filename=$data['current_image'];
             }
-            Service::where(['id'=>$id])->update(['id'=>$data['category'],'name'=>$data['name'],'adress'=>$data['adress']
+            Service::where(['id'=>$id])->update(['category_id'=>$data['category'],'name'=>$data['name'],'adress'=>$data['adress']
             ,'openhour'=>$data['openhour'],'closehour'=>$data['closehour'],'description'=>$data['description'],'phone'=>$data['phone'],'image'=>$filename]);
             return redirect('/admin/view-service')->with('flash_message_succ',' Edit service  Successfully');
         }
@@ -260,6 +261,85 @@ class ServiceController extends Controller
        // dd($complaint);
        $complaint->markAsRead();
         return view ('user.complaint')->with(compact('complaint'));
+    }
+    public function Myservice(){
+        $serviceAll= Service::where('user_id',auth()->user()->id)->orderBy('id','DESC')->get();
+        $categorie=Category::with('categories')->where(['parent_id'=>0])->get();
+        return view('admin.service.userservice')->with(compact('serviceAll','categorie'));
+
+    }
+    public function editserviceu($id,Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            $validator = Validator::make($data,[
+                'category'=>'required',
+                'name'=>'required|min:3|max:25',
+                'adress'=>'required|min:6|max:35',
+                'openhour'=>'required',
+                'closehour'=>'required',
+                'image'=>'required',
+                'description'=>'required|min:6',
+                'phone'=>'required'
+               ]);
+            if($validator->fails()) {
+                return Redirect::back()->withErrors($validator);
+            }
+                $image_tmp =$request->file('image');
+
+                $extension =$image_tmp->getClientOriginalExtension();
+                $filename = rand(111,99999).'.'.$extension;
+                $large_image_path='img/backend_images/services/large/'.$filename;
+                $medium_image_path='img/backend_images/services/medium/'.$filename;
+                $samll_image_path='img/backend_images/services/small/'.$filename;
+                //Rezise image
+                Image::make($image_tmp)->save($large_image_path);
+                Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
+                Image::make($image_tmp)->resize(300,300)->save($samll_image_path);
+                $servicee= Service::where(['id'=>$id])->first();
+   $logeedIn =Auth::user()->id;
+        $data =$request->all();
+        $info=array(
+            'ide'=>$servicee->id,
+            'user'=>$logeedIn,
+            'name'=>$data['name'],
+             'adress'=>$data['adress'],
+             'openhour'=>$data['openhour'],
+             'closehour'=>$data['closehour'],
+             'phone'=>$data['phone'],
+             'image'=>$filename,
+             'description'=>$data['description'],
+             'category_id'=>$data['category']
+        );
+
+        $user=User::where('role','admin')->get();
+        Notification::send($user,new editService($info));
+            return redirect('/My-service')->with('flash_message_succ',' Wait for the Adminstrator to aproove your update ');
+
+        }
+        $service= Service::where(['id'=>$id])->first();
+        $categories= Category::where(['parent_id'=>0])->get();
+        $category_dropdown = "<option value=''  selected disabled>Select</option>";
+        foreach($categories as $cat){
+            if($cat->id == $service->category_id){
+                $selected= "selected";
+            }
+            else{
+                $selected ="";
+            }
+            $category_dropdown .= "<option value='".$cat->id."'".$selected." >".$cat->name."</option>";
+            $sub_cat= Category::where(['parent_id'=>$cat->id])->get();
+            foreach($sub_cat as $sub){
+                if($sub->id == $service->category_id){
+                    $selected= "selected";
+                }
+                else{
+                    $selected ="";
+                }
+                $category_dropdown .= "<option value= '".$sub->id."' ".$selected.">&nbsp;--&nbsp;".$sub->name."</option>";
+            }
+        }
+        return view('admin.user.edit_service')->with(compact('service','category_dropdown'));
+
     }
 
 }

@@ -35,11 +35,13 @@ Route::match(['get', 'post'], '/admin/update_pwd', 'AdminController@updatePwd');
 Route::get('/admin/dashbord','AdminController@dashbord');
 Route::get('/logout','AdminController@logout');
 Route::match(['get', 'post'],'/verifyservice/{notification}','AdminController@verify')->name('verifyservice');
-Route::match(['get', 'post'],'/complaintservice/{id}/{service}','AdminController@complaint')->name('complaintservice');
+Route::match(['get', 'post'],'/verifyuservice/{notification}','AdminController@verifyupdate')->name('verifyuservice');
+Route::match(['get', 'post'],'/complaintservice/{id}/{service}/{idf}','AdminController@complaint')->name('complaintservice');
 //CategoryController
 Route::match(['get', 'post'], '/admin/add-category','CategoryController@addCategory');
 Route::match(['get', 'post'], '/admin/view-users','UserController@User');
 Route::match(['get', 'post'], '/admin/view-posts','BlogController@Posts');
+Route::match(['get', 'post'], '/admin/detail-posts','BlogController@detailPosts');
 Route::get('/admin/view-category','CategoryController@viewCategories');
 Route::match(['get', 'post'], '/admin/edit-category/{id}','CategoryController@editCategory');
 Route::match(['get', 'post'], '/admin/delete-category/{id}','CategoryController@deleteCategory');
@@ -70,12 +72,18 @@ Route::group(['middleware' => ['acces']], function () {
     Route::match(['get', 'post'],'/update-pass','UserController@updatepass');
 
     Route::match(['get', 'post'], '/add-service','ServiceController@userService');
+    Route::match(['get', 'post'], '/My-service','ServiceController@MyService');
     Route::match(['get', 'post'], '/complaint/{id}','ServiceController@complaint')->name('complaint');
     Route::post('/postblog/{id}','BlogController@addPost');
     Route::post('/comment/{id}','CommentController@addComment');
     Route::post('/commentdetail/{id}','CommentController@addCommentdetail');
+    Route::match(['get', 'post'], '/user/delete-commentu/{id}','CommentController@deleteComment');
+    Route::match(['get', 'post'], '/delete-postu/{id}','BlogController@deletePostu');
+    Route::match(['get', 'post'], '/edit-postu/{id}','BlogController@editPostu');
+    Route::match(['get', 'post'], '/edit-service/{id}','ServiceController@editserviceu');
 
 });
+
 //forum
 Route::get('/blog/{name}','BlogController@listBlog');
 Route::get('/blog','BlogController@index');

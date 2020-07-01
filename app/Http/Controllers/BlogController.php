@@ -23,12 +23,7 @@ class BlogController extends Controller
         return view('user.forum')->with(compact('categorie','post','user','service','comment'));
 
     }
-    public function posts(){
-        $post=Post::get();
-        $user=User::get();
-        $service=Service::get();
-        return view('admin.user.post')->with(compact('post','user','service'));
-    }
+
     public function addPost(Request $request,$id){
         $data=$request->all();
         $validator = Validator::make($data,[
@@ -72,13 +67,13 @@ class BlogController extends Controller
     }
     public function postDetaile($id,$notif){
         $notifcation =auth()->user()->unreadNotifications()->find($notif);
-//        $notifcation->markAsRead();
+
         $categorie=Category::with('categories')->where(['parent_id'=>0])->get();
         $user=User::get();
          $comment=Comment::get();
          $serviceid=Service::where('category_id',$id)->get();
          $post=Post::where('id',$id)->get();
-
+         $notifcation->markAsRead();
 
     return view('user.postdetail')->with(compact('categorie','post','user','service','comment'));
     }
@@ -88,4 +83,41 @@ class BlogController extends Controller
             return  redirect()->back()->with('flash_message_success','category has deleted success');
     }
    }
+   public function posts(){
+    $post=Post::get();
+    $user=User::get();
+    $service=Service::get();
+    return view('admin.user.post')->with(compact('post','user','service'));
+}
+   public function detailPosts(){
+    $post=Post::get();
+    $user=User::get();
+    $service=Service::get();
+    return view('admin.user.postdetail')->with(compact('post','user','service'));
+   }
+   public function deletePostu($id){
+    if(!empty($id)){
+        Post::where(['id'=>$id])->delete();
+        return  redirect()->back()->with('flash_message_success','category has deleted success');
+}
+   }
+   public function editPostu($id,Request $request){
+   if($request->isMethod('post')){
+    $data=$request->all();
+    $validator = Validator::make($data,[
+        'post'=>'required|min:10',
+       ]);
+  if($validator->fails()) {
+    return Redirect::back()->withErrors($validator);
+}
+   $post =Post::find($id);
+   $post->post=$data['post'];
+   $post->save();
+   return redirect('/blog');
+   }
+    $post =Post::find($id);
+    $comment=Comment::get();
+   $servicedet=Service::where('id',$post->service_id)->first();
+   return view('user.editpost')->with(compact('post','servicedet','comment'));
+}
 }

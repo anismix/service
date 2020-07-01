@@ -33,13 +33,14 @@
                       </tr>
                     </thead>
                     <tbody>
+
                         @foreach ($post as $post)
                       <tr class="gradeX">
                              @foreach ( $user as $use )
                                     @if ($use->id === $post->user_id)
                                     <td> {{ $use->name }}
                              </td>
-                        <td>{{ $post->post }}</td>
+                  <td>   <a href="{{ url('/admin/detail-post') }}"> {{ $post->post }} </a></td>
 
                                 @endif
                         @endforeach

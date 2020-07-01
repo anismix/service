@@ -14,6 +14,7 @@
                                         <a data-toggle="collapse" data-parent="#accordian" href="#{{ $cat->id }}">
                                             <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                                             {{ $cat->name  }}
+
                                         </a>
                                     </h4>
                                 </div>

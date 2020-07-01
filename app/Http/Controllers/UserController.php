@@ -148,7 +148,11 @@ public function login(Request $request ){
            if($validator->fails()) {
             return Redirect::back()->withErrors($validator);
         }
+        if(Auth::attempt(['email' => $data['email'] , 'password' => $data['password'] ,'role' => 'admin'])){
 
+            $request->session()->put('frontsession',$data['email']);
+            return redirect('/');
+        }
         if(Auth::attempt(['email' => $data['email'], 'password' => $data['password']]) ){
             $email_verif=User::where('email',$data['email'])->first();
             if($email_verif->email_verified_at ==null){
@@ -203,7 +207,7 @@ public function account(Request $request){
       $user->name=$data['name'];
       $user->adress=$data['adress'];
       $user->city=$data['city'];
-      $user->name=$data['pincode'];
+      $user->pincode=$data['pincode'];
       $user->mobile=$data['mobile'];
       $user->save();
     }

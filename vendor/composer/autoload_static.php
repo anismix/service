@@ -513,6 +513,7 @@ class ComposerStaticInit8e585f1f605c5779e22de02aa4592cf2
         'App\\Notification' => __DIR__ . '/../..' . '/app/Notification.php',
         'App\\Notifications\\ComplaintService' => __DIR__ . '/../..' . '/app/Notifications/ComplaintService.php',
         'App\\Notifications\\commentReply' => __DIR__ . '/../..' . '/app/Notifications/commentReply.php',
+        'App\\Notifications\\editService' => __DIR__ . '/../..' . '/app/Notifications/editService.php',
         'App\\Notifications\\testService' => __DIR__ . '/../..' . '/app/Notifications/testService.php',
         'App\\Post' => __DIR__ . '/../..' . '/app/Post.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

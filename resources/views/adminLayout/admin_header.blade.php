@@ -14,9 +14,18 @@
               <li class="dropdown" id="profile-messages"><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">{{ auth()->user()->unreadNotifications->count() }} notification(s)</span><b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     @foreach (auth()->user()->unreadNotifications as $notification)
+                    @if ($notification->data['typeNotification']==='App\\Notifications\\testService')
                       <li><a href="{{  route('verifyservice', ['notification' => $notification->id])}}">
                       <i class="icon-user"></i>{{ $notification->data['name'] }} New !! </a></li>
+                      @endif
                     <li class="divider"></li>
+                    @if ($notification->data['typeNotification']==='App\\Notifications\\editService')
+                    <li><a href="{{ route('verifyuservice', ['notification'=>$notification->id]) }}">
+                          <i class="icon-user"></i> Update {{  $notification->data['name'] }} service
+                      </a>
+                    </li>
+                    @endif
+                  </ul>
               </li>
               @endforeach
                 @endunless

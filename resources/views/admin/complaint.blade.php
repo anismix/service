@@ -24,7 +24,7 @@
             </div>
             @endif
             <div class="widget-content nopadding">
-            <form  method="POST" action="{{ route('complaintservice',['id'=>$id,'service'=>$service]) }}" >
+            <form  method="POST" action="{{ route('complaintservice',['id'=>$id,'service'=>$service,'idf'=>$idf]) }}" >
                {{ csrf_field() }}
                 <div style="margin-left :15px;">
                             <div class="control-group">

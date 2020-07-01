@@ -8,7 +8,6 @@
             <ul <?php if(preg_match("/category/i",$url)){ ?>style="display:block;"<?php } ?> >
               <li <?php if(preg_match("/add-category/i",$url)){ ?>class="active" <?php } ?> ><a href="{{ url('/admin/add-category') }}">Add Category</a></li>
               <li <?php if(preg_match("/view-category'/i",$url)){ ?>class="active" <?php } ?> ><a href="{{ url('/admin/view-category') }}">View Category</a></li>
-
             </ul>
           </li>
           <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Services</span> <span class="label label-important">2</span></a>
