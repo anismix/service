@@ -10,7 +10,7 @@
             <tr><td>&nbsp;</td></tr>
             <tr><td>Subject : {{ $subject }}</td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>Message : {{ $messages }}</td></tr>
+            <tr><td>Message : {{ $msg }}</td></tr>
 
         </table>
     </body>

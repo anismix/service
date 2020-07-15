@@ -25,9 +25,10 @@
                       </a>
                     </li>
                     @endif
-                  </ul>
+                    @endforeach
+                </ul>
               </li>
-              @endforeach
+
                 @endunless
  </ul>
   </div>
