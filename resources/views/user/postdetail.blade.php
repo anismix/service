@@ -1,4 +1,4 @@
-@extends('frontLayout.front_design');
+@extends('frontLayout.front_design')
 @section('content')
 <section>
 		<div class="container">
@@ -49,7 +49,7 @@
                                          <div class="ml-15" style="background: #edf492;padding:8px;">
                                                 <span style="float:right;" style="color:black;"> <i class="fa fa-user" ></i> {{ $use->name}}
                                                     @if(!(empty(Auth::check())))
-                                                        @if(  (Auth::user()->id=='admin' || Auth::user()->id ===$com->user_id))
+                                                        @if(  (Auth::user()->role=='admin' || Auth::user()->id ===$com->user_id))
                                                        <a id="deleCu" rel="{{ $com->id }}" rel1="delete-commentu" href="{{ url('/user/delete-commentu/'.$com->id) }}"><i class="fa fa-trash-o" style="color:red; " ></i></a>
                                                        @endif
                                                    @endif
@@ -67,12 +67,7 @@
             @endforeach
 
             <div class="pagination-area">
-                <ul class="pagination">
-                    <li><a href="" class="active">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><a href="">3</a></li>
-                    <li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
-                </ul>
+
             </div>
         </div>
     </div>

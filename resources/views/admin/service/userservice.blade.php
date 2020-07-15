@@ -1,4 +1,4 @@
-@extends('frontLayout.front_design');
+@extends('frontLayout.front_design')
 @section('content')
 
 <section id="slider"><!--slider-->

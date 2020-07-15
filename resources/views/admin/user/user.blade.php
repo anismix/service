@@ -2,7 +2,7 @@
 @section('content')
 <div id="content">
         <div id="content-header">
-                <div id="breadcrumb"> <a href="{{ url('/admin/dashbord') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Services</a> <a href="#" class="current">View Category</a> </div>
+                <div id="breadcrumb"> <a href="{{ url('/admin/dashbord') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Users</a> <a href="#" class="current">View Users</a> </div>
                 @if (Session::has('flash_message_succ'))
                 <div class="alert alert-success alert-block">
                     <button type="button" class="close" data-dismiss="alert">×</button>
@@ -39,8 +39,8 @@
                       <tr class="gradeX">
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>---------</td>
-                        <td>---------</td>
+                        <td>{{ $user->adress }}</td>
+                        <td>{{ $user->mobile }}</td>
 
                          <td class="center">
                                 <a id="deleUser" rel="{{ $user->id }}" rel1="delete-user"

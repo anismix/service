@@ -1,4 +1,4 @@
-@extends('frontLayout.front_design');
+@extends('frontLayout.front_design')
 @section('content')
 
 <section id="slider"><!--slider-->
@@ -17,8 +17,8 @@
                             <div class="col-sm-6">
                                 <h1><span>E</span>-SERVICE</h1>
                                 <h2>Best Service For You</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <button type="button" class="btn btn-default get">Get it now</button>
+                                <p>a service management web platform aimed at strengthening the social strategy between customers and service providers </p>
+
                             </div>
                             <div class="col-sm-6">
                                 <img src="{{ asset('img/frontend_images/sport.jpg') }}" class="img-responsive" alt="" />
@@ -29,8 +29,8 @@
                             <div class="col-sm-6">
                                 <h1><span>E</span>-SERVICE</h1>
                                 <h2>Best Service For You</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <button type="button" class="btn btn-default get">Get it now</button>
+                                <p>a service management web platform aimed at strengthening the social strategy between customers and service providers </p>
+
                             </div>
                             <div class="col-sm-6">
                                 <img src="{{ asset('img/frontend_images/boulangerie.jpg') }}"  class="img-responsive" alt="" />
@@ -41,8 +41,8 @@
                             <div class="col-sm-6">
                                 <h1><span>E</span>-SERVICE</h1>
                                 <h2>Best Service For You</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <button type="button" class="btn btn-default get">Get it now</button>
+                                <p>a service management web platform aimed at strengthening the social strategy between customers and service providers </p>
+
                             </div>
                             <div class="col-sm-6">
                                 <img src="{{ asset('img/frontend_images/dentiste.jpg') }}" class="img-responsive" alt="" />

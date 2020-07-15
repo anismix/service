@@ -1,4 +1,4 @@
-@extends('frontLayout.front_design');
+@extends('frontLayout.front_design')
 @section('content')
 <div id="contact-page" class="container">
     	<div class="bg">

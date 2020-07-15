@@ -1,4 +1,4 @@
-@extends('frontLayout.front_design');
+@extends('frontLayout.front_design')
 @section('content')
 <section>
 		<div class="container">
@@ -57,11 +57,7 @@
                         @endforeach
                     </ul>
                     <span>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
+
                     </span>
                 </div>
                 <p class="mb-8">{{ $post->post }}</p>
@@ -93,12 +89,7 @@
             @endforeach
 
             <div class="pagination-area">
-                <ul class="pagination">
-                    <li><a href="" class="active">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><a href="">3</a></li>
-                    <li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
-                </ul>
+
             </div>
         </div>
     </div>

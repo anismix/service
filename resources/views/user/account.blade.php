@@ -1,4 +1,4 @@
-@extends('frontLayout.front_design');
+@extends('frontLayout.front_design')
 @section('content')
 
 <section id="form" style="margin-top: 0px;"><!--form-->
