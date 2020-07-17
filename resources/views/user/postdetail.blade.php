@@ -42,6 +42,7 @@
                                         <div class="input-group-append">
                                                 <button type="submit" class="btn btn-primary">Comment</button>
                                          </div>
+
                                          @foreach ($comment as $com )
                                          @if ( $com->post_id === $post->id)
                                          &nbsp;  @foreach ( $user as $use )

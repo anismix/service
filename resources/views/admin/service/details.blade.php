@@ -1,4 +1,4 @@
-@extends('frontLayout.front_design');
+@extends('frontLayout.front_design')
 @section('content')
 <section>
     <div class="container">
@@ -17,7 +17,7 @@
                     <div class="col-sm-5">
                         <div class="view-product">
                             <img src="images/product-details/1.jpg" alt="">
-                            <h3>ZOOM</h3>
+
                         </div>
                         <div id="similar-product" >
 
@@ -43,6 +43,19 @@
                             <p><b>Phone:</b>{{ $servicedet->phone }}</p>
                             <p><b>adress:</b>{{ $servicedet->adress }}</p>
 
+                        </span>
+                       <form>
+                           {{ csrf_field() }}
+                        <div>
+                            <i class="fa fa-star " data-index="0"></i>
+                            <i class="fa fa-star " data-index="1"></i>
+                            <i class="fa fa-star " data-index="2"></i>
+                            <i class="fa fa-star " data-index="3"></i>
+                            <i class="fa fa-star " data-index="4"></i>
+                            <br><br>
+
+                        </div>
+                       </form>
                         </div><!--/product-information-->
                     </div>
                 </div><!--/product-details-->

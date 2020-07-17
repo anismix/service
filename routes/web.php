@@ -51,6 +51,7 @@ Route::match(['get', 'post'], '/admin/delete-user/{id}','UserController@deleteUs
 Route::match(['get', 'post'], '/admin/add-service','ServiceController@addservice');
 Route::get('/admin/view-service','ServiceController@viewservices');
 Route::match(['get', 'post'], '/admin/edit-service/{id}','ServiceController@editservice');
+
 Route::get('admin/delete-image/{id}', 'ServiceController@deleteImage');
 Route::get('admin/delete-service/{id}', 'ServiceController@deleteservice');
 
@@ -70,7 +71,6 @@ Route::group(['middleware' => ['acces']], function () {
     Route::match(['get', 'post'], '/account', 'UserController@account');
     Route::post('/check-pass','UserController@checkpass');
     Route::match(['get', 'post'],'/update-pass','UserController@updatepass');
-
     Route::match(['get', 'post'], '/add-service','ServiceController@userService');
     Route::match(['get', 'post'], '/My-service','ServiceController@MyService');
     Route::match(['get', 'post'], '/complaint/{id}','ServiceController@complaint')->name('complaint');
@@ -81,6 +81,7 @@ Route::group(['middleware' => ['acces']], function () {
     Route::match(['get', 'post'], '/delete-postu/{id}','BlogController@deletePostu');
     Route::match(['get', 'post'], '/edit-postu/{id}','BlogController@editPostu');
     Route::match(['get', 'post'], '/edit-service/{id}','ServiceController@editserviceu');
+    Route::post('/review','ServiceController@Review');
 
 });
 

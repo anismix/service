@@ -256,6 +256,9 @@ class ServiceController extends Controller
          return view('admin.service.details')->with(compact('servicedet','categorie','related_service'));
 
     }
+    public function review(Request $request){
+        dd('anis');
+    }
     public function complaint($id){
         $complaint=auth()->user()->unreadNotifications()->find($id);
        // dd($complaint);
